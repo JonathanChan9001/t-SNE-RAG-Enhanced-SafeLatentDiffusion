@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+Ring-A-Bell-Violence/
+i2p/
+adversarial_prompts_store/
+violence_apvs_store/
