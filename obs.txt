@@ -1,0 +1,56 @@
+def add_obfuscated_prompt_to_vector_store(intensity_levels):
+    """
+    Read all prompts from vector store, create multiple obfuscated versions at different
+    intensity levels, and add them back to the vector store
+    
+    Args:
+        intensity_levels: List of obfuscation intensity values (0.0 = original, 1.0 = maximum obfuscation)
+    """
+    
+    print("📚 Reading existing prompts from vector store...")
+    # Get all documents from vector store
+    results = vector_store_collection.get(
+        include=["documents", "metadatas"]
+    )
+    
+    documents = results.get("documents", [])
+    metadatas = results.get("metadatas", [])
+    
+    print(f"Found {len(documents)} existing prompts")
+    
+    # Obfuscate and add each prompt at different intensity levels
+    added = 0
+    total_to_add = len(documents) * len(intensity_levels)
+    
+    for i, (doc, meta) in enumerate(zip(documents, metadatas)):
+        # Skip intensity 0.0 as it would duplicate the original prompt
+        for intensity in intensity_levels:
+            if intensity == 0.0:
+                # Skip adding duplicates of original prompts
+                continue
+                
+            # Generate obfuscated version at current intensity
+            obfuscated_prompt = generate_obfuscated_prompt(doc, intensity=intensity)
+            
+            # Add metadata about obfuscation
+            meta_copy = meta.copy() if meta else {}
+            meta_copy["obfuscated"] = True
+            meta_copy["original_prompt"] = doc
+            meta_copy["obfuscation_intensity"] = float(intensity)
+            
+            # Add to vector database with enhanced metadata
+            try:
+                _id = add_prompt_to_vector_db(obfuscated_prompt, meta_copy)
+                added += 1
+                if (added % 200 == 0) or (added == total_to_add - len(documents)):
+                    print(f"Added {added}/{total_to_add} obfuscated prompts (last id={_id})")
+            except Exception as e:
+                print(f"Failed at prompt {i}, intensity {intensity}: {e}")
+    
+    print(f"Total obfuscated prompts added to vector DB: {added}")
+    print("✅ Completed adding obfuscated versions to vector store")
+
+
+intensity_levels = [0.0, 0.3, 0.5, 0.7, 0.9]
+
+add_obfuscated_prompt_to_vector_store(intensity_levels)
