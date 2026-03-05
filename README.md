@@ -1,4 +1,4 @@
-# RAG-Enhanced Safe Latent Diffusion (RAG-SLD)
+# RAG-Enhanced Safe Latent Diffusion with t-SNE Analysis (RAG-SLD)
 
 **FIT5230 – Malicious AI** | Monash University
 
@@ -31,7 +31,7 @@ A safety pipeline that combines **Retrieval-Augmented Generation (RAG)** with **
   <a href="https://developer.nvidia.com/cuda-toolkit"><img src="https://img.shields.io/badge/CUDA-76B900?style=for-the-badge&logo=nvidia&logoColor=white" alt="NVIDIA CUDA"></a>
 </p>
 
-The RAG-SLD pipeline intercepts prompts before they reach a diffusion model. It embeds each prompt and compares it against a **ChromaDB vector store** of known harmful adversarial prompts sourced from the [I2P dataset](https://huggingface.co/datasets/AIML-TUDA/i2p) and the [Ring-A-Bell Violence category](https://arxiv.org/abs/2310.10012). Based on the cosine similarity score, it makes one of three decisions before allowing (or blocking) image generation through [AIML-TUDA/stable-diffusion-safe](https://huggingface.co/AIML-TUDA/stable-diffusion-safe).
+The RAG-SLD pipeline intercepts prompts before they reach a diffusion model. It embeds each prompt and compares it against a **ChromaDB vector store** of known harmful adversarial prompts sourced from the [I2P dataset](https://huggingface.co/datasets/AIML-TUDA/i2p) and the [Ring-A-Bell Violence category](https://arxiv.org/abs/2310.10012). Based on the cosine similarity score, it makes one of three decisions before allowing (or blocking) image generation through [AIML-TUDA/stable-diffusion-safe](https://huggingface.co/AIML-TUDA/stable-diffusion-safe). The pipeline is further extended with **t-SNE visualisation** to project semantic embeddings of adversarial, obfuscated, and safe prompts into 2D space, providing interpretable insight into why the retrieval-based safety filter remains robust even under obfuscation attacks.
 
 ---
 
