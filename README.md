@@ -23,6 +23,14 @@ A safety pipeline that combines **Retrieval-Augmented Generation (RAG)** with **
 
 ## Overview
 
+<p align="center">
+  <a href="https://huggingface.co/AIML-TUDA/stable-diffusion-safe"><img src="https://img.shields.io/badge/🤗_HuggingFace-FFD21E?style=for-the-badge&logoColor=black" alt="HuggingFace"></a>
+  <a href="https://www.trychroma.com/"><img src="https://img.shields.io/badge/ChromaDB-FF6F00?style=for-the-badge&logo=databricks&logoColor=white" alt="ChromaDB"></a>
+  <a href="https://huggingface.co/AIML-TUDA/stable-diffusion-safe"><img src="https://img.shields.io/badge/Safe_Latent_Diffusion-6B4FBB?style=for-the-badge&logo=artstation&logoColor=white" alt="Safe Latent Diffusion"></a>
+  <a href="https://pytorch.org/"><img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch"></a>
+  <a href="https://developer.nvidia.com/cuda-toolkit"><img src="https://img.shields.io/badge/CUDA-76B900?style=for-the-badge&logo=nvidia&logoColor=white" alt="NVIDIA CUDA"></a>
+</p>
+
 The RAG-SLD pipeline intercepts prompts before they reach a diffusion model. It embeds each prompt and compares it against a **ChromaDB vector store** of known harmful adversarial prompts sourced from the [I2P dataset](https://huggingface.co/datasets/AIML-TUDA/i2p) and the [Ring-A-Bell Violence category](https://arxiv.org/abs/2310.10012). Based on the cosine similarity score, it makes one of three decisions before allowing (or blocking) image generation through [AIML-TUDA/stable-diffusion-safe](https://huggingface.co/AIML-TUDA/stable-diffusion-safe).
 
 ---
